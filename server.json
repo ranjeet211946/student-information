@@ -1,0 +1,48 @@
+
+const mysql = require('mysql2');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const path = require('path');
+
+const app = express();
+const port = 3000;
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
+app.use(session({ secret: 'student-secret', resave: false, saveUninitialized: true }));
+
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '', // your password if any
+  database: 'trip'  // Change this line
+});
+
+db.connect(err => {
+  if (err) throw err;
+  console.log('✅ Connected to MySQL Database');
+});
+
+app.post('/submit', (req, res) => {
+  const { name, fname, mname, age, gender, email, phone, desc } = req.body;
+
+  // Simple validation (you can extend this)
+  if (!/^[A-Za-z][A-Za-z ]+$/.test(name)) return res.send('Invalid name');
+  if (!/^[0-9]{10}$/.test(phone)) return res.send('Invalid phone number');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.send('Invalid email');
+
+  const sql = `INSERT INTO trip2_data (Name, \`Father Name\`, \`Mother Name\`, Age, Gender, Email, Phone, Other, Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())`;
+
+  db.query(sql, [name, fname, mname, age, gender, email, phone, desc], err => {
+    if (err) throw err;
+    res.redirect('/');
+  });
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.listen(port, () => {
+  console.log(`🚀 Server running at http://localhost:${port}`);
+});
