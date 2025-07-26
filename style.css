@@ -1,0 +1,70 @@
+/* style.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url(iit.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container {
+  max-width: 600px;
+  width: 90%;
+  margin: 40px auto;
+  /* background: #fff; */
+  padding: 20px 30px;
+  box-shadow: 0 0 10px rgba(84, 230, 241, 0.1);
+  border-radius: 8px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+form input,
+form textarea,
+form button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #111010;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+form button {
+  background-color: #007bff;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+.submitmsg {
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Optional: Media query for smaller phones */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  form input,
+  form textarea,
+  form button {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}
